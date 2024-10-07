@@ -1,0 +1,105 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.top {
+    height: 200px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.main-row {
+    width: 500px;
+    height: 100px;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#code {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    /* padding-bottom: 20px; */
+    text-align: center;
+    color: aliceblue ;
+    font-weight: bold;
+}
+#color-set {
+    width: 100px;
+    height: 80px;
+    /* background-color: aliceblue; */
+    margin: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+#main-guess-row {
+    width: 300px;
+    height: 80px;
+    margin: 5px;
+    background-color: rgb(194, 163, 127);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.control {
+    margin: 5px;
+    width: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.hole {
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle at 15px 15px, #000, rgb(77, 46, 29));
+    border-radius: 15px;
+   
+}
+.feedback {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.feedback-hole {
+    margin: 5px;
+    width: 15px;
+    height: 15px;
+    background: radial-gradient(circle at 7px 7px, #000, rgb(77, 46, 29));
+    border-radius: 8px;
+}
+
+.red {
+    background: radial-gradient(circle at 10px 10px, red, #494949);
+}
+.yellow {
+    background: radial-gradient(circle at 10px 10px, yellow, #494949);
+}
+.green {
+    background: radial-gradient(circle at 10px 10px, green, #494949);
+}
+.blue {
+    background: radial-gradient(circle at 10px 10px, blue, #494949);
+}
+.orange {
+    background: radial-gradient(circle at 10px 10px, orange, #494949);
+}
+.white {
+    background: radial-gradient(circle at 10px 10px, white, #494949);
+}
+
+.main-row:hover {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23000000" fill="%23000000" width="20px" height="20px" viewBox="0 0 10.04 10.04"><circle cx="5.02" cy="5.02" r="4.52"/></svg>') 10 10, auto;
+}
