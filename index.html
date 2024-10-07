@@ -1,52 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script defer src="./app.js"></script>
     <link rel="stylesheet" href="./style.css" />
     <title>Mastermind Game</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="top">
-        <h1>Mastermind Game</h1>
-        <div><button>Start New Game</button></div>
-        <div id="code">
-            <div class="hole" id="code-0">?</div>
-            <div class="hole" id="code-1">?</div>
-            <div class="hole" id="code-2">?</div>
-            <div class="hole" id="code-3">?</div>
-        </div>
+      <h1>Mastermind Game</h1>
+      <div><button id="start-button">Start New Game</button></div>
+      <div id="code">
+        <div class="hole" id="code-0">?</div>
+        <div class="hole" id="code-1">?</div>
+        <div class="hole" id="code-2">?</div>
+        <div class="hole" id="code-3">?</div>
+      </div>
     </div>
     <div class="main-row">
-        <div id="color-set">
-            <div class="hole red" id="red"></div>
-            <div class="hole yellow" id="yellow"></div>
-            <div class="hole green" id="green"></div>
-            <div class="hole blue" id="blue"></div>
-            <div class="hole orange" id="orange"></div>
-            <div class="hole white" id="white"></div>
-        </div>
-        <div id="main-guess-row">
-            <div class="hole" id="0"></div>
-            <div class="hole" id="1"></div>
-            <div class="hole" id="2"></div>
-            <div class="hole" id="3"></div>
-        </div>
-        <div class="control">
-            <button id="check">Check</button>  
-            <!-- <div class="feedback">
+      <div id="color-set">
+        <div class="hole red" id="red"></div>
+        <div class="hole yellow" id="yellow"></div>
+        <div class="hole green" id="green"></div>
+        <div class="hole blue" id="blue"></div>
+        <div class="hole orange" id="orange"></div>
+        <div class="hole white" id="white"></div>
+      </div>
+      <div id="main-guess-row">
+        <div class="hole" id="0"></div>
+        <div class="hole" id="1"></div>
+        <div class="hole" id="2"></div>
+        <div class="hole" id="3"></div>
+      </div>
+      <div class="control">
+        <button id="check">Check</button>
+        <!-- <div class="feedback">
                 <div class="feedback-hole" id="feedback0"></div>
                 <div class="feedback-hole" id="feedback1"></div>
                 <div class="feedback-hole" id="feedback2"></div>
                 <div class="feedback-hole" id="feedback3"></div>    
             </div>  -->
-            
-        </div>
+      </div>
     </div>
-    <div id="guess-rows">
-
-        
-    </div>   
-</body>
+    <div id="guess-rows"></div>
+  </body>
 </html>
