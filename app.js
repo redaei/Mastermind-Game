@@ -7,7 +7,7 @@ let tryIndex = 0
 let code = ['red', 'yellow', 'green', 'blue']
 let selectedColor
 let feedback = []
-let attempt = []
+let attempt = ['', '', '', '']
 
 /*------------------------ Cached Element References ------------------------*/
 const guessRows = document.getElementById('guess-rows')
@@ -43,20 +43,33 @@ const addAttempt = (index, holeColor) => {
   attempt[index] = holeColor
 }
 const tryFeedback = () => {
-  if (attempt.every((hole)=> hole)){
-    feedback = []
-    //make sure to empty feedback array
-    code.forEach((color,index)=>{
-      let att = attempt.shift()
-      if (color===att){
-        feedback.push("red")
-      } else if (color.includes(att)){
-        feedback.push("white")        
+  const CodeCopy = code.map((x) => x)
+  console.log(CodeCopy)
+  console.log(attempt)
+
+  if (attempt.every((hole) => hole)) {
+    feedback = [] //to empty feedback array
+
+    CodeCopy.forEach((color, index) => {
+      if (color === attempt[index]) {
+        feedback.push('red')
+        CodeCopy[index] = ''
+        attempt[index] = ''
       }
-        
+    })
+    attempt.forEach((hole, attInd) => {
+      let codeInd = CodeCopy.findIndex((color) => {
+        return hole === color
+      })
+      console.log(codeInd)
+
+      if (codeInd != -1) {
+        feedback.push('white')
+        CodeCopy[codeInd] = ''
+        attempt[attInd] = ''
+      }
     })
     addGuessRow()
-
   }
   //attempt.forEach() //here
 }
@@ -73,7 +86,7 @@ const updateCodeDisply = () => {
 }
 const clearGuessRow = () => {
   activeGuessRow.forEach((hole) => {
-    attempt = []
+    attempt = ['', '', '', '']
     let lastClass = hole.classList[hole.classList.length - 1]
     if (lastClass !== 'hole') {
       hole.className = 'hole'
@@ -84,20 +97,20 @@ const addGuessRow = () => {
   // tryIndex ++    ,    attemptsRemaining --
   tryIndex += 1
   attemptsRemaining -= 1
-  
+  const guessClassList = activeGuessRow
   //add guess row to #guess-rows in index.html (3 divs) attempt No. #  +   attempt   +   feedback
-  const newGuessRow = document.createElement("div")
-  const newAttemptNoDiv = document.createElement("div")
-  const newAttptColors = document.createElement ("div")
-  const newFeedback = document.createElement("div")
+  const newGuessRow = document.createElement('div')
+  const newAttemptNoDiv = document.createElement('div')
+  const newAttptColors = document.createElement('div')
+  const newFeedback = document.createElement('div')
 
-  const AttNumTxt = document.createTextNode("Attempt No.: " + tryIndex ) 
-  
-  newAttemptNoDiv.className = "color-set"
+  const AttNumTxt = document.createTextNode('Attempt No.: ' + tryIndex)
+
+  newAttemptNoDiv.className = 'color-set'
   newAttemptNoDiv.appendChild(AttNumTxt)
-  newAttptColors.className = "main-guess-row"
-  newAttptColors.innerHTML = `<div class="hole ${attempt[0]}"></div> <div class="hole ${attempt[1]}"></div> <div class="hole ${attempt[2]}"></div> <div class="hole ${attempt[3]}"></div>`
-  newFeedback.className = "control"
+  newAttptColors.className = 'main-guess-row'
+  newAttptColors.innerHTML = `<div class="hole ${activeGuessRow[0].classList[1]}"></div> <div class="hole ${activeGuessRow[1].classList[1]}"></div> <div class="hole ${activeGuessRow[2].classList[1]}"></div> <div class="hole ${activeGuessRow[3].classList[1]}"></div>`
+  newFeedback.className = 'control'
   newFeedback.innerHTML = `<div class="feedback">
                 <div class="feedback-hole ${feedback[0]}"></div>
                 <div class="feedback-hole ${feedback[1]}"></div>
@@ -105,15 +118,14 @@ const addGuessRow = () => {
                 <div class="feedback-hole ${feedback[3]}"></div>
                 </div> `
   //
-  newGuessRow.className = "guess-attempts"
+  newGuessRow.className = 'guess-attempts'
   newGuessRow.appendChild(newAttemptNoDiv)
   newGuessRow.appendChild(newAttptColors)
   newGuessRow.appendChild(newFeedback)
 
   guessRows.prepend(newGuessRow)
-  
+
   clearGuessRow()
-  
 }
 /*----------------------------- Event Listeners -----------------------------*/
 colorsSetEl.forEach((color) => {
