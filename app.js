@@ -7,7 +7,7 @@ let tryIndex = 0
 let code = ['red', 'yellow', 'green', 'blue']
 let selectedColor
 let feedback = []
-const attempt = []
+let attempt = []
 
 /*------------------------ Cached Element References ------------------------*/
 const guessRows = document.getElementById('guess-rows')
@@ -44,11 +44,13 @@ const addAttempt = (index, holeColor) => {
 }
 const tryFeedback = () => {
   if (attempt.every((hole)=> hole)){
-    //make sure to empty feedback array 
-    attempt.forEach((hole,index)=>{
-      if (hole===code[index]){
+    feedback = []
+    //make sure to empty feedback array
+    code.forEach((color,index)=>{
+      let att = attempt.shift()
+      if (color===att){
         feedback.push("red")
-      } else if (code.includes(hole)){
+      } else if (color.includes(att)){
         feedback.push("white")        
       }
         
@@ -71,6 +73,7 @@ const updateCodeDisply = () => {
 }
 const clearGuessRow = () => {
   activeGuessRow.forEach((hole) => {
+    attempt = []
     let lastClass = hole.classList[hole.classList.length - 1]
     if (lastClass !== 'hole') {
       hole.className = 'hole'
@@ -78,14 +81,18 @@ const clearGuessRow = () => {
   })
 }
 const addGuessRow = () => {
+  // tryIndex ++    ,    attemptsRemaining --
+  tryIndex += 1
+  attemptsRemaining -= 1
+  
   //add guess row to #guess-rows in index.html (3 divs) attempt No. #  +   attempt   +   feedback
   const newGuessRow = document.createElement("div")
   const newAttemptNoDiv = document.createElement("div")
   const newAttptColors = document.createElement ("div")
   const newFeedback = document.createElement("div")
-  //
-  const AttNumTxt = document.createTextNode("Attempt No.: " + tryIndex+1 ) 
-//
+
+  const AttNumTxt = document.createTextNode("Attempt No.: " + tryIndex ) 
+  
   newAttemptNoDiv.className = "color-set"
   newAttemptNoDiv.appendChild(AttNumTxt)
   newAttptColors.className = "main-guess-row"
@@ -98,14 +105,15 @@ const addGuessRow = () => {
                 <div class="feedback-hole ${feedback[3]}"></div>
                 </div> `
   //
+  newGuessRow.className = "guess-attempts"
   newGuessRow.appendChild(newAttemptNoDiv)
   newGuessRow.appendChild(newAttptColors)
   newGuessRow.appendChild(newFeedback)
 
   guessRows.prepend(newGuessRow)
   
+  clearGuessRow()
   
-  // tryIndex ++    ,    attemptsRemaining --
 }
 /*----------------------------- Event Listeners -----------------------------*/
 colorsSetEl.forEach((color) => {
