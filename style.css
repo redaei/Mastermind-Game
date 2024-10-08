@@ -20,6 +20,15 @@ body {
   justify-content: space-around;
   align-items: center;
 }
+#guess-rows {
+  width: 500px;
+  height: 100px;
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
 #code {
   display: flex;
   justify-content: space-around;
@@ -40,11 +49,30 @@ body {
   align-items: center;
   flex-wrap: wrap;
 }
+.color-set {
+  width: 100px;
+  height: 80px;
+  /* background-color: aliceblue; */
+  margin: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
 #main-guess-row {
   width: 300px;
   height: 80px;
   margin: 5px;
   background-color: rgb(194, 163, 127);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.main-guess-row{
+  width: 300px;
+  height: 80px;
+  margin: 5px;
+  background-color: rgb(221, 238, 174);
   display: flex;
   justify-content: space-around;
   align-items: center;
