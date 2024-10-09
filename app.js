@@ -5,6 +5,7 @@ const colorsSet = ['red', 'yellow', 'green', 'blue', 'orange', 'white']
 let attemptsRemaining = 10
 let tryIndex = 0
 let code = ['red', 'yellow', 'green', 'blue']
+let CodeCopy = []
 let selectedColor
 let feedback = []
 let attempt = ['', '', '', '']
@@ -33,6 +34,8 @@ const clickHole = (hole) => {
 }
 const init = () => {
   //code = []
+  CodeCopy = []
+  CodeCopy = code.map((x) => x)
   updateCodeDisply()
   clearGuessRow()
 }
@@ -43,7 +46,7 @@ const addAttempt = (index, holeColor) => {
   attempt[index] = holeColor
 }
 const tryFeedback = () => {
-  const CodeCopy = code.map((x) => x)
+  
   console.log(CodeCopy)
   console.log(attempt)
 
@@ -55,20 +58,33 @@ const tryFeedback = () => {
         feedback.push('red')
         CodeCopy[index] = ''
         attempt[index] = ''
+        console.log("red: ")
+        console.log(CodeCopy)
+        console.log(attempt)
       }
     })
     attempt.forEach((hole, attInd) => {
       let codeInd = CodeCopy.findIndex((color) => {
         return hole === color
       })
-      console.log(codeInd)
 
-      if (codeInd != -1) {
+      if (codeInd !== -1) {
         feedback.push('white')
         CodeCopy[codeInd] = ''
         attempt[attInd] = ''
+        console.log(codeInd)
+        console.log("white: ")
+        console.log(CodeCopy)
+        console.log(attempt)
+      } else {
+        
+        console.log("empty hole");
+        
       }
     })
+    console.log("end: ")
+    console.log(CodeCopy)
+    console.log(attempt)
     addGuessRow()
   }
   //attempt.forEach() //here
