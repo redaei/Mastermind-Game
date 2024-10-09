@@ -4,11 +4,13 @@ const colorsSet = ['red', 'yellow', 'green', 'blue', 'orange', 'white']
 /*---------------------------- Variables (state) ----------------------------*/
 let attemptsRemaining = 10
 let tryIndex = 0
-let code = ['red', 'yellow', 'green', 'blue']
+let code = ['red', 'yellow', 'red', 'blue']
 let CodeCopy = []
 let selectedColor
 let feedback = []
 let attempt = ['', '', '', '']
+let win = false
+let lose = false
 
 /*------------------------ Cached Element References ------------------------*/
 const guessRows = document.getElementById('guess-rows')
@@ -30,10 +32,10 @@ const clickHole = (hole) => {
     hole.target.classList.add(selectedColor)
   }
   addAttempt(hole.target.id, selectedColor)
-  //console.log(hole)
 }
 const init = () => {
-  //code = []
+  code = []
+  setNewCode()
   CodeCopy = []
   CodeCopy = code.map((x) => x)
   updateCodeDisply()
@@ -41,12 +43,16 @@ const init = () => {
 }
 const setNewCode = () => {
   //random code [ ,  ,  , ] from colorsSet
+  for (let i = 0; i < 4; i++) {
+    let test = colorsSet[Math.floor(Math.random() * colorsSet.length)]
+    code.push(test)
+  }
+  console.log(code)
 }
 const addAttempt = (index, holeColor) => {
   attempt[index] = holeColor
 }
 const tryFeedback = () => {
-  
   console.log(CodeCopy)
   console.log(attempt)
 
@@ -58,40 +64,35 @@ const tryFeedback = () => {
         feedback.push('red')
         CodeCopy[index] = ''
         attempt[index] = ''
-        console.log("red: ")
+        console.log('red: ')
         console.log(CodeCopy)
         console.log(attempt)
       }
     })
+    clearEmptyElm()
     attempt.forEach((hole, attInd) => {
       let codeInd = CodeCopy.findIndex((color) => {
         return hole === color
       })
 
       if (codeInd !== -1) {
-        feedback.push('white')
         CodeCopy[codeInd] = ''
         attempt[attInd] = ''
-        console.log(codeInd)
-        console.log("white: ")
         console.log(CodeCopy)
         console.log(attempt)
-      } else {
-        
-        console.log("empty hole");
-        
       }
     })
-    console.log("end: ")
+    clearEmptyElm()
+    console.log(attemptsRemaining)
+
     console.log(CodeCopy)
     console.log(attempt)
     addGuessRow()
   }
-  //attempt.forEach() //here
 }
 const updateCodeDisply = () => {
   code.forEach((codeColor, index) => {
-    if (code[0]) {
+    if (CodeCopy[0]) {
       codeEls[index].innerText = ''
       codeEls[index].classList.add(codeColor)
     } else {
@@ -109,6 +110,20 @@ const clearGuessRow = () => {
     }
   })
 }
+//function to clear '' empty elements in array
+const clearEmptyElm = () => {
+  CodeCopy.forEach((color, index) => {
+    if (color === '') {
+      CodeCopy.splice(index, 1)
+    }
+  })
+  attempt.forEach((color, index) => {
+    if (color === '') {
+      attempt.splice(index, 1)
+    }
+  })
+}
+
 const addGuessRow = () => {
   // tryIndex ++    ,    attemptsRemaining --
   tryIndex += 1
@@ -141,7 +156,22 @@ const addGuessRow = () => {
 
   guessRows.prepend(newGuessRow)
 
+  CodeCopy = []
+  CodeCopy = code.map((x) => x)
   clearGuessRow()
+  checkWinLose()
+}
+const checkWinLose = () => {
+  //if win?
+  if (feedback.every((color) => color === 'red') && feedback.length === 4) {
+    console.log('Win!')
+    win = true
+  }
+  //if lose?
+  if (attemptsRemaining < 1) {
+    console.log('lose!')
+    lose = true
+  }
 }
 /*----------------------------- Event Listeners -----------------------------*/
 colorsSetEl.forEach((color) => {
@@ -163,3 +193,5 @@ activeGuessRow.forEach((hole) => {
 
 startButton.addEventListener('click', init)
 checkButton.addEventListener('click', tryFeedback)
+
+init()
