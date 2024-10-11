@@ -89,6 +89,7 @@ const tryFeedback = () => {
       if (codeInd !== -1) {
         CodeCopy[codeInd] = ''
         attempt[attInd] = ''
+        feedback.push('white')
        // console.log(CodeCopy)
        // console.log(attempt)
       }
