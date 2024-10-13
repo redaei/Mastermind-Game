@@ -21,11 +21,11 @@ const colorsSetEl = document.getElementById('color-set').querySelectorAll('div')
 const codeEls = document.getElementById('code').querySelectorAll('div')
 const startButton = document.querySelector('#start-button')
 const checkButton = document.querySelector('#check')
-const message = document.getElementById("message")
+const message = document.getElementById('message')
 
 /*-------------------------------- Functions --------------------------------*/
 const clickHole = (hole) => {
-  if (!win && !lose){
+  if (!win && !lose) {
     let lastClass = hole.target.classList[hole.target.classList.length - 1]
     if (lastClass === 'hole') {
       hole.target.classList.add(selectedColor)
@@ -35,7 +35,6 @@ const clickHole = (hole) => {
     }
     addAttempt(hole.target.id, selectedColor)
   }
-  
 }
 const init = () => {
   win = false
@@ -46,7 +45,7 @@ const init = () => {
   code = []
   setNewCode()
   removeAllGuessRows()
-  checkButton.disabled=false
+  checkButton.disabled = false
   clearGuessRow()
 }
 const setNewCode = () => {
@@ -67,45 +66,50 @@ const addAttempt = (index, holeColor) => {
 const tryFeedback = () => {
   // console.log(CodeCopy)
   // console.log(attempt)
-
   if (attempt.every((hole) => hole)) {
     feedback = [] //to empty feedback array
-    // console.log(feedback);
+    console.log(feedback)
 
     CodeCopy.forEach((color, index) => {
       if (color === attempt[index]) {
         feedback.push('red')
-        CodeCopy[index] = ''
-        attempt[index] = ''
-        console.log(CodeCopy)
-        console.log(attempt)
+        CodeCopy[index] = 'X'
+        attempt[index] = 'X'
       }
     })
-    console.log("after reds:");
-    
-    clearEmptyElm()
-    // console.log(CodeCopy);
-    
-    attempt.forEach((hole, attInd) => {
-      let codeInd = CodeCopy.findIndex((color) => {
-        return hole === color
-      })
+    console.log('after reds:')
 
-      if (codeInd !== -1) {
-        CodeCopy[codeInd] = ''
-        attempt[attInd] = ''
-        feedback.push('white')
-      //  console.log(CodeCopy)
-      //  console.log(attempt)
-      }
-    })
-    console.log("after whites:");
     clearEmptyElm()
-    //console.log(CodeCopy);
-    // console.log(CodeCopy)
-    // console.log(attempt)
+
+    console.log(CodeCopy)
+    console.log(attempt)
+    if (feedback.length < 4) {
+      attempt.forEach((hole, attInd) => {
+        let codeInd = CodeCopy.findIndex((color) => {
+          return hole === color
+        })
+
+        if (codeInd !== -1) {
+          CodeCopy[codeInd] = 'X'
+          attempt[attInd] = 'X'
+          feedback.push('white')
+        }
+      })
+    }
+
+    console.log('after whites:')
+
+    clearEmptyElm()
+
+    console.log('last arrays')
+    console.log(CodeCopy)
+    console.log(attempt)
+
     addGuessRow()
     checkWinLose()
+    console.log('feedback:')
+
+    console.log(feedback)
   }
 }
 const updateCodeDisply = () => {
@@ -115,19 +119,17 @@ const updateCodeDisply = () => {
       hole.className = 'hole'
     }
   })
-  if(win || lose){
+  if (win || lose) {
     code.forEach((codeColor, index) => {
-        codeEls[index].innerText = ''
-        codeEls[index].classList.add(codeColor)
+      codeEls[index].innerText = ''
+      codeEls[index].classList.add(codeColor)
     })
   } else {
     code.forEach((codeColor, index) => {
       codeEls[index].innerText = '?'
       codeEls[index].classList.remove(codeColor)
     })
-    
   }
-  
 }
 const clearGuessRow = () => {
   activeGuessRow.forEach((hole) => {
@@ -139,27 +141,32 @@ const clearGuessRow = () => {
   })
 }
 const removeAllGuessRows = () => {
-  guessRows.innerHTML = ""
-  
+  guessRows.innerHTML = ''
 }
 //function to clear '' empty elements in array
 const clearEmptyElm = () => {
-  CodeCopy.forEach((color, index) => {
-    if (color == '') {
-      CodeCopy.splice(index, 1)
-      console.log("Empty");
-      
+  for (let i = 0; i <= 4; i++) {
+    if (CodeCopy[i] === 'X') {
+      console.log('Delete X: ' + CodeCopy[i])
+      CodeCopy.splice(i, 1)
+    } else {
+      console.log('its: ' + CodeCopy[i])
     }
-    console.log("codeCopy :" + CodeCopy );
-    
-  })
-  attempt.forEach((color, index) => {
-    if (color == '') {
-      attempt.splice(index, 1)
-      console.log("Empty");
+  }
+  //
+  // CodeCopy.forEach((color, index) => {
+  // })
+
+  for (let i = 0; i < 4; i++) {
+    if (attempt[i] === 'X') {
+      console.log('delete X: ' + attempt[i])
+      attempt.splice(i, 1)
+    } else {
+      console.log('its: ' + attempt[i])
     }
-    console.log("attempt :" + attempt );
-  })
+  }
+  // attempt.forEach((color, index) => {
+  // })
 }
 
 const addGuessRow = () => {
@@ -201,12 +208,10 @@ const addGuessRow = () => {
 const checkWinLose = () => {
   //if win?
   //console.log(feedback);
-    
-  
+
   if (feedback.every((color) => color === 'red') && feedback.length === 4) {
     console.log('Win!')
     win = true
-    
   }
   //if lose?
   if (!win && attemptsRemaining < 1) {
@@ -214,27 +219,26 @@ const checkWinLose = () => {
     lose = true
   }
   //show message + pop-up
-  if(win){
-    checkButton.disabled = true;
+  if (win) {
+    checkButton.disabled = true
     updateCodeDisply()
-    message.innerText = "You are smart!"
+    message.innerText = 'You are smart!'
     const myPopup = new Popup({
-      id: "my-popup",
-      title: "Bravo!",
-      content: "You win!",
+      id: 'my-popup',
+      title: 'Bravo!',
+      content: 'You win!',
       showImmediately: true
     })
-  }
-  else if(lose){
-    checkButton.disabled = true;
+  } else if (lose) {
+    checkButton.disabled = true
     updateCodeDisply()
-    message.innerText = "Is it hard? Try again!"
+    message.innerText = 'Is it hard? Try again!'
     const myPopup = new Popup({
-      id: "my-popup",
-      title: "Opss!",
-      content: "You Lose!",
+      id: 'my-popup',
+      title: 'Opss!',
+      content: 'You Lose!',
       showImmediately: true
-    });
+    })
   } else {
     message.innerText = `Try to find the colors in the exact order. \n You have ${attemptsRemaining} attempts remaining.`
   }
