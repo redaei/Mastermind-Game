@@ -1,106 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Candal&display=swap');
+
+* {
+  --board-color: #de8f65;
+  --hole-color: #5c3018;
+
+}
 body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: "Candal", sans-serif;
+
 }
 .top {
-  height: 200px;
-  width: 500px;
+  width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  color: var(--hole-color);
 }
 .main-row {
-  width: 500px;
+  width: 400px;
   height: 100px;
-  background-color: antiquewhite;
+  background-color: var(--board-color);
   display: flex;
   justify-content: space-around;
   align-items: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 #guess-rows {
-  width: 500px;
-  background-color: rgb(255, 227, 209);
+  width: 400px;
+  background-color: var(--board-color);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 .guess-attempts {
-  width: 500px;
+  width: 400px;
   height: 100px;
-  background-color: rgb(209, 255, 244);
   display: flex;
   justify-content: space-around;
   align-items: center;
+  border-top:  1px solid rgba(0, 0, 0, 0.2);
 }
 #code {
+  width: 200px;
+  height: 80px;
+  margin: 5px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0;
-  /* padding-bottom: 20px; */
   text-align: center;
-  color: aliceblue;
-  font-weight: bold;
+  color: white;
+}
+#code>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#message {
+  text-align: center;
 }
 #color-set {
   width: 100px;
   height: 80px;
-  /* background-color: aliceblue; */
   margin: 5px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+}
+#color-set > div {
+  border-radius: 20px;
+  border: 1px solid var(--board-color);
+}
+#color-set > div:hover {
+  border: 1px solid var(--hole-color) ;
+  border-radius: 20px;
 }
 .color-set {
   width: 100px;
   height: 80px;
-  /* background-color: aliceblue; */
   margin: 5px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  text-align: center;
+  color: var(--hole-color);
 }
+
 #main-guess-row {
-  width: 300px;
+  width: 200px;
   height: 80px;
   margin: 5px;
-  background-color: rgb(194, 163, 127);
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 .main-guess-row{
-  width: 300px;
+  width: 200px;
   height: 80px;
   margin: 5px;
-  background-color: rgb(221, 238, 174);
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 .control {
-  margin: 5px;
-  width: 80px;
+  width: 100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
 }
 .hole {
-  width: 30px;
-  height: 30px;
-  background: radial-gradient(circle at 15px 15px, #000, rgb(77, 46, 29));
-  border-radius: 15px;
+  width: 28px;
+  height: 28px;
+  background: radial-gradient(circle at 20px 20px,  var(--hole-color), rgb(0, 0, 0));
+  border-radius: 20px;
+}
+button {
+  border: 1px solid var(--hole-color);
+  background-color: var(--board-color);
+  color: var(--hole-color);
+  font-family: "Candal", sans-serif;
+}
+button:hover {
+  border-color: #b5b5b5;
+}
+#check {
+  padding: 5px 10px 5px 10px;
+  width: 80px;
+}
+#start-button {
+  padding: 10px 40px 10px 40px;
+  margin-bottom: 20px;
 }
 .feedback {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -110,7 +154,7 @@ body {
   margin: 5px;
   width: 15px;
   height: 15px;
-  background: radial-gradient(circle at 7px 7px, #000, rgb(77, 46, 29));
+  background: radial-gradient(circle at 12px 12px,  var(--hole-color), rgb(0, 0, 0));
   border-radius: 8px;
 }
 

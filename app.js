@@ -42,7 +42,7 @@ const init = () => {
   lose = false
   attemptsRemaining = 10
   tryIndex = 0
-  message.innerText = "Try to find the colors in the exact order"
+  message.innerText = `Try to find the colors in the exact order. \n You have ${attemptsRemaining} attempts remaining.`
   code = []
   setNewCode()
   removeAllGuessRows()
@@ -70,17 +70,22 @@ const tryFeedback = () => {
 
   if (attempt.every((hole) => hole)) {
     feedback = [] //to empty feedback array
+    // console.log(feedback);
 
     CodeCopy.forEach((color, index) => {
       if (color === attempt[index]) {
         feedback.push('red')
         CodeCopy[index] = ''
         attempt[index] = ''
-        //console.log(CodeCopy)
-        //console.log(attempt)
+        console.log(CodeCopy)
+        console.log(attempt)
       }
     })
+    console.log("after reds:");
+    
     clearEmptyElm()
+    // console.log(CodeCopy);
+    
     attempt.forEach((hole, attInd) => {
       let codeInd = CodeCopy.findIndex((color) => {
         return hole === color
@@ -90,18 +95,17 @@ const tryFeedback = () => {
         CodeCopy[codeInd] = ''
         attempt[attInd] = ''
         feedback.push('white')
-       // console.log(CodeCopy)
-       // console.log(attempt)
+      //  console.log(CodeCopy)
+      //  console.log(attempt)
       }
     })
+    console.log("after whites:");
     clearEmptyElm()
-    console.log(attemptsRemaining)
-
-    //console.log(CodeCopy)
-    //console.log(attempt)
+    //console.log(CodeCopy);
+    // console.log(CodeCopy)
+    // console.log(attempt)
     addGuessRow()
     checkWinLose()
-    
   }
 }
 const updateCodeDisply = () => {
@@ -141,14 +145,20 @@ const removeAllGuessRows = () => {
 //function to clear '' empty elements in array
 const clearEmptyElm = () => {
   CodeCopy.forEach((color, index) => {
-    if (color === '') {
+    if (color == '') {
       CodeCopy.splice(index, 1)
+      console.log("Empty");
+      
     }
+    console.log("codeCopy :" + CodeCopy );
+    
   })
   attempt.forEach((color, index) => {
-    if (color === '') {
+    if (color == '') {
       attempt.splice(index, 1)
+      console.log("Empty");
     }
+    console.log("attempt :" + attempt );
   })
 }
 
@@ -190,6 +200,8 @@ const addGuessRow = () => {
 }
 const checkWinLose = () => {
   //if win?
+  //console.log(feedback);
+    
   
   if (feedback.every((color) => color === 'red') && feedback.length === 4) {
     console.log('Win!')
@@ -223,6 +235,8 @@ const checkWinLose = () => {
       content: "You Lose!",
       showImmediately: true
     });
+  } else {
+    message.innerText = `Try to find the colors in the exact order. \n You have ${attemptsRemaining} attempts remaining.`
   }
 }
 /*----------------------------- Event Listeners -----------------------------*/
