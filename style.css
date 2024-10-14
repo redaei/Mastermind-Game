@@ -5,6 +5,7 @@
   --hole-color: #5c3018;
 }
 body {
+  background-color: rgb(222, 213, 195);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,7 +13,7 @@ body {
   font-family: 'Candal', sans-serif;
 }
 .top {
-  width: 400px;
+  width: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -20,7 +21,7 @@ body {
   color: var(--hole-color);
 }
 .main-row {
-  width: 400px;
+  width: 450px;
   height: 100px;
   background-color: var(--board-color);
   display: flex;
@@ -30,7 +31,7 @@ body {
   border-top-right-radius: 15px;
 }
 #guess-rows {
-  width: 400px;
+  width: 450px;
   background-color: var(--board-color);
   display: flex;
   flex-direction: column;
@@ -40,7 +41,7 @@ body {
   border-bottom-right-radius: 15px;
 }
 .guess-attempts {
-  width: 400px;
+  width: 450px;
   height: 100px;
   display: flex;
   justify-content: space-around;
@@ -67,12 +68,12 @@ body {
 }
 .attempts {
   background-color: var(--hole-color);
-  border-radius: 5px ;
+  border-radius: 5px;
   color: white;
   padding: 1px 3px 1px 3px;
 }
 #color-set {
-  width: 100px;
+  width: 125px;
   height: 80px;
   margin: 5px;
   display: flex;
@@ -82,18 +83,19 @@ body {
 }
 #color-set > div {
   border-radius: 20px;
-  border: 1px solid var(--board-color);
+  border: 2px solid var(--board-color);
 }
 #color-set > div:hover {
-  border: 1px solid var(--hole-color);
+  border: 2px solid var(--hole-color);
 }
 .selectedColor {
-  border: 1px solid var(--hole-color) !important;
+  border: 2px solid var(--hole-color) !important;
 }
 .color-set {
-  width: 100px;
+  width: 125px;
   height: 80px;
   margin: 5px;
+  text-wrap: balance;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -119,15 +121,15 @@ body {
   align-items: center;
 }
 .control {
-  width: 100px;
+  width: 125px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
 }
 .hole {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   background: radial-gradient(
     circle at 20px 20px,
     var(--hole-color),
@@ -157,8 +159,8 @@ button:disabled {
   margin-bottom: 20px;
 }
 .feedback {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -196,27 +198,50 @@ button:disabled {
 }
 
 .RED {
-  background: radial-gradient(circle at 10px 10px, rgba(255, 0, 0, 0.6), #494949);
+  background: radial-gradient(
+    circle at 10px 10px,
+    rgba(255, 0, 0, 0.6),
+    #494949
+  );
 }
 .YELLOW {
-  background: radial-gradient(circle at 10px 10px, rgba(255, 255, 0, 0.6), #494949);
+  background: radial-gradient(
+    circle at 10px 10px,
+    rgba(255, 255, 0, 0.6),
+    #494949
+  );
 }
 .GREEN {
-  background: radial-gradient(circle at 10px 10px, rgba(0, 128, 0, 0.6), #494949);
+  background: radial-gradient(
+    circle at 10px 10px,
+    rgba(0, 128, 0, 0.6),
+    #494949
+  );
 }
 .BLUE {
-  background: radial-gradient(circle at 10px 10px, rgba(0, 0, 255, 0.6), #494949);
+  background: radial-gradient(
+    circle at 10px 10px,
+    rgba(0, 0, 255, 0.6),
+    #494949
+  );
 }
 .ORANGE {
-  background: radial-gradient(circle at 10px 10px, rgba(255, 166, 0, 0.6), #494949);
+  background: radial-gradient(
+    circle at 10px 10px,
+    rgba(255, 166, 0, 0.6),
+    #494949
+  );
 }
 .WHITE {
-  background: radial-gradient(circle at 10px 10px, rgba(255, 255, 255, 0.6), #494949);
+  background: radial-gradient(
+    circle at 10px 10px,
+    rgba(255, 255, 255, 0.6),
+    #494949
+  );
 }
 
-div[disabled]
-{
-  pointer-events: none; 
+div[disabled] {
+  pointer-events: none;
   opacity: 0.7;
 }
 

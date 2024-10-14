@@ -1,7 +1,7 @@
 /*-------------------------------- Constants --------------------------------*/
 const colorsSet = ['red', 'yellow', 'green', 'blue', 'orange', 'white']
-const backAudio = new Audio('./sounds/The-Ant-Hill-Gang-Goes-West.mp3');
-const actionSound = new Audio('./sounds/Footstep_Tile_Right_3.mp3');
+const backAudio = new Audio('./sounds/The-Ant-Hill-Gang-Goes-West.mp3')
+const actionSound = new Audio('./sounds/Footstep_Tile_Right_3.mp3')
 /*---------------------------- Variables (state) ----------------------------*/
 let attemptsRemaining = 10
 let tryIndex = 0
@@ -23,7 +23,7 @@ const codeEls = document.getElementById('code').querySelectorAll('div')
 const startButton = document.querySelector('#start-button')
 const checkButton = document.querySelector('#check')
 const message = document.getElementById('message')
-const mainRow = document.querySelector(".main-row")
+const mainRow = document.querySelector('.main-row')
 
 /*-------------------------------- Functions --------------------------------*/
 const clickHole = (hole) => {
@@ -45,24 +45,24 @@ const init = () => {
   lose = false
   attemptsRemaining = 10
   tryIndex = 0
-  message.innerHTML = `Try to find the colors in the exact order. \n You have <span class="attempts">${attemptsRemaining}</span> attempts remaining.`
+  message.innerHTML = `Try to find the colors in the exact order.</br> You have <span class="attempts">${attemptsRemaining}</span> attempts remaining.`
   code = []
   setNewCode()
   removeAllGuessRows()
   unSelectColor()
   checkButton.disabled = false
   clearGuessRow()
-  mainRow.removeAttribute("disabled") 
+  mainRow.removeAttribute('disabled')
 }
 const setNewCode = () => {
-  //random code [ ,  ,  , ] from colorsSet
+  //generate random code [ ,  ,  , ] from colorsSet
   for (let i = 0; i < 4; i++) {
     let test = colorsSet[Math.floor(Math.random() * colorsSet.length)]
     code.push(test)
   }
   CodeCopy = []
   CodeCopy = code.map((x) => x)
- 
+
   console.log(CodeCopy)
   updateCodeDisply()
 }
@@ -70,7 +70,6 @@ const addAttempt = (index, holeColor) => {
   attempt[index] = holeColor
 }
 const tryFeedback = () => {
-  
   if (attempt.every((hole) => hole)) {
     feedback = [] //to empty feedback array
 
@@ -90,7 +89,11 @@ const tryFeedback = () => {
           return hole === color
         })
 
-        if (codeInd !== -1) {
+        if (
+          codeInd !== -1 &&
+          CodeCopy[codeInd] !== 'X' &&
+          attempt[attInd] !== 'X'
+        ) {
           CodeCopy[codeInd] = 'X'
           attempt[attInd] = 'X'
           feedback.push('white')
@@ -142,24 +145,17 @@ const clearEmptyElm = () => {
       CodeCopy.splice(i, 1)
     }
   }
-  //
-  // CodeCopy.forEach((color, index) => {
-  // })
 
   for (let i = 0; i < 4; i++) {
     if (attempt[i] === 'X') {
       attempt.splice(i, 1)
     }
   }
-  // attempt.forEach((color, index) => {
-  // })
 }
 
 const addGuessRow = () => {
-  // tryIndex ++    ,    attemptsRemaining --
   tryIndex += 1
   attemptsRemaining -= 1
-  //const guessClassList = activeGuessRow
   //add guess row to #guess-rows in index.html (3 divs) attempt No. #  +   attempt   +   feedback
   const newGuessRow = document.createElement('div')
   const newAttemptNoDiv = document.createElement('div')
@@ -179,7 +175,7 @@ const addGuessRow = () => {
                 <div class="feedback-hole ${feedback[2]}"></div>
                 <div class="feedback-hole ${feedback[3]}"></div>
                 </div> `
-  //
+
   newGuessRow.className = 'guess-attempts'
   newGuessRow.appendChild(newAttemptNoDiv)
   newGuessRow.appendChild(newAttptColors)
@@ -205,7 +201,7 @@ const checkWinLose = () => {
   //show message + pop-up
   if (win) {
     checkButton.disabled = true
-    mainRow.setAttribute("disabled",true)
+    mainRow.setAttribute('disabled', true)
     updateCodeDisply()
     message.innerText = 'You are smart!'
     const myPopup = new Popup({
@@ -216,7 +212,7 @@ const checkWinLose = () => {
     })
   } else if (lose) {
     checkButton.disabled = true
-    mainRow.setAttribute("disabled",true)
+    mainRow.setAttribute('disabled', true)
     updateCodeDisply()
     message.innerText = 'Is it hard? Try again!'
     const myPopup = new Popup({
@@ -226,7 +222,7 @@ const checkWinLose = () => {
       showImmediately: true
     })
   } else {
-    message.innerHTML = `Try to find the colors in the exact order. \n You have <span class="attempts">${attemptsRemaining}</span> attempts remaining.`
+    message.innerHTML = `Try to find the colors in the exact order.</br> You have <span class="attempts">${attemptsRemaining}</span> attempts remaining.`
   }
 }
 
@@ -246,26 +242,24 @@ colorsSetEl.forEach((color) => {
 activeGuessRow.forEach((hole) => {
   hole.addEventListener('click', clickHole)
   hole.addEventListener('mouseenter', (event) => {
-    if (event.target.classList.length === 1){
-      if(selectedColor){
+    if (event.target.classList.length === 1) {
+      if (selectedColor) {
         event.target.classList.add(selectedColor.toUpperCase())
       }
-      
     }
   })
 
   hole.addEventListener('mouseleave', (event) => {
-    if(selectedColor){
+    if (selectedColor) {
       event.target.classList.remove(selectedColor.toUpperCase())
     }
   })
-
 })
 
 startButton.addEventListener('click', init)
 checkButton.addEventListener('click', tryFeedback)
 
+/*----------------------------- Initialize The Game -----------------------------*/
 backAudio.loop = true
-backAudio.volume = 0.2;
+backAudio.volume = 0.2
 init()
-
