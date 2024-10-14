@@ -65,6 +65,12 @@ body {
 #message {
   text-align: center;
 }
+.attempts {
+  background-color: var(--hole-color);
+  border-radius: 5px ;
+  color: white;
+  padding: 1px 3px 1px 3px;
+}
 #color-set {
   width: 100px;
   height: 80px;
@@ -80,7 +86,9 @@ body {
 }
 #color-set > div:hover {
   border: 1px solid var(--hole-color);
-  border-radius: 20px;
+}
+.selectedColor {
+  border: 1px solid var(--hole-color) !important;
 }
 .color-set {
   width: 100px;
@@ -186,7 +194,28 @@ button:disabled {
 .white {
   background: radial-gradient(circle at 10px 10px, white, #494949);
 }
-.selectedColor {
-  border: solid lightsalmon;
-  border-radius: 50%;
+
+.RED {
+  background: radial-gradient(circle at 10px 10px, rgba(255, 0, 0, 0.6), #494949);
+}
+.YELLOW {
+  background: radial-gradient(circle at 10px 10px, rgba(255, 255, 0, 0.6), #494949);
+}
+.GREEN {
+  background: radial-gradient(circle at 10px 10px, rgba(0, 128, 0, 0.6), #494949);
+}
+.BLUE {
+  background: radial-gradient(circle at 10px 10px, rgba(0, 0, 255, 0.6), #494949);
+}
+.ORANGE {
+  background: radial-gradient(circle at 10px 10px, rgba(255, 166, 0, 0.6), #494949);
+}
+.WHITE {
+  background: radial-gradient(circle at 10px 10px, rgba(255, 255, 255, 0.6), #494949);
+}
+
+div[disabled]
+{
+  pointer-events: none; 
+  opacity: 0.7;
 }

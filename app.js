@@ -22,6 +22,7 @@ const codeEls = document.getElementById('code').querySelectorAll('div')
 const startButton = document.querySelector('#start-button')
 const checkButton = document.querySelector('#check')
 const message = document.getElementById('message')
+const mainRow = document.querySelector(".main-row")
 
 /*-------------------------------- Functions --------------------------------*/
 const clickHole = (hole) => {
@@ -41,12 +42,14 @@ const init = () => {
   lose = false
   attemptsRemaining = 10
   tryIndex = 0
-  message.innerText = `Try to find the colors in the exact order. \n You have ${attemptsRemaining} attempts remaining.`
+  message.innerHTML = `Try to find the colors in the exact order. \n You have <span class="attempts">${attemptsRemaining}</span> attempts remaining.`
   code = []
   setNewCode()
   removeAllGuessRows()
+  unSelectColor()
   checkButton.disabled = false
   clearGuessRow()
+  mainRow.removeAttribute("disabled") 
 }
 const setNewCode = () => {
   //random code [ ,  ,  , ] from colorsSet
@@ -56,7 +59,7 @@ const setNewCode = () => {
   }
   CodeCopy = []
   CodeCopy = code.map((x) => x)
-  // console.log(code)
+ 
   console.log(CodeCopy)
   updateCodeDisply()
 }
@@ -64,11 +67,9 @@ const addAttempt = (index, holeColor) => {
   attempt[index] = holeColor
 }
 const tryFeedback = () => {
-  // console.log(CodeCopy)
-  // console.log(attempt)
+  
   if (attempt.every((hole) => hole)) {
     feedback = [] //to empty feedback array
-    console.log(feedback)
 
     CodeCopy.forEach((color, index) => {
       if (color === attempt[index]) {
@@ -77,12 +78,9 @@ const tryFeedback = () => {
         attempt[index] = 'X'
       }
     })
-    console.log('after reds:')
 
     clearEmptyElm()
 
-    console.log(CodeCopy)
-    console.log(attempt)
     if (feedback.length < 4) {
       attempt.forEach((hole, attInd) => {
         let codeInd = CodeCopy.findIndex((color) => {
@@ -97,19 +95,10 @@ const tryFeedback = () => {
       })
     }
 
-    console.log('after whites:')
-
     clearEmptyElm()
-
-    console.log('last arrays')
-    console.log(CodeCopy)
-    console.log(attempt)
 
     addGuessRow()
     checkWinLose()
-    console.log('feedback:')
-
-    console.log(feedback)
   }
 }
 const updateCodeDisply = () => {
@@ -143,14 +132,11 @@ const clearGuessRow = () => {
 const removeAllGuessRows = () => {
   guessRows.innerHTML = ''
 }
-//function to clear '' empty elements in array
+//function to clear 'X' empty elements in array
 const clearEmptyElm = () => {
   for (let i = 0; i <= 4; i++) {
     if (CodeCopy[i] === 'X') {
-      console.log('Delete X: ' + CodeCopy[i])
       CodeCopy.splice(i, 1)
-    } else {
-      console.log('its: ' + CodeCopy[i])
     }
   }
   //
@@ -159,10 +145,7 @@ const clearEmptyElm = () => {
 
   for (let i = 0; i < 4; i++) {
     if (attempt[i] === 'X') {
-      console.log('delete X: ' + attempt[i])
       attempt.splice(i, 1)
-    } else {
-      console.log('its: ' + attempt[i])
     }
   }
   // attempt.forEach((color, index) => {
@@ -207,8 +190,6 @@ const addGuessRow = () => {
 }
 const checkWinLose = () => {
   //if win?
-  //console.log(feedback);
-
   if (feedback.every((color) => color === 'red') && feedback.length === 4) {
     console.log('Win!')
     win = true
@@ -221,6 +202,7 @@ const checkWinLose = () => {
   //show message + pop-up
   if (win) {
     checkButton.disabled = true
+    mainRow.setAttribute("disabled",true)
     updateCodeDisply()
     message.innerText = 'You are smart!'
     const myPopup = new Popup({
@@ -231,6 +213,7 @@ const checkWinLose = () => {
     })
   } else if (lose) {
     checkButton.disabled = true
+    mainRow.setAttribute("disabled",true)
     updateCodeDisply()
     message.innerText = 'Is it hard? Try again!'
     const myPopup = new Popup({
@@ -240,28 +223,44 @@ const checkWinLose = () => {
       showImmediately: true
     })
   } else {
-    message.innerText = `Try to find the colors in the exact order. \n You have ${attemptsRemaining} attempts remaining.`
+    message.innerHTML = `Try to find the colors in the exact order. \n You have <span class="attempts">${attemptsRemaining}</span> attempts remaining.`
   }
+}
+
+const unSelectColor = () => {
+  colorsSetEl.forEach((color) => {
+    color.classList.remove('selectedColor')
+  })
 }
 /*----------------------------- Event Listeners -----------------------------*/
 colorsSetEl.forEach((color) => {
   color.addEventListener('click', (event) => {
     selectedColor = event.target.id
-    // event.target.classList.add('selectedColor')
+    unSelectColor()
+    event.target.classList.add('selectedColor')
   })
 })
 activeGuessRow.forEach((hole) => {
   hole.addEventListener('click', clickHole)
-  //   hole.addEventListener('mouseenter', (event) => {
-  //     event.target.classList.add(selectedColor)
-  //   })
+  hole.addEventListener('mouseenter', (event) => {
+    if (event.target.classList.length === 1){
+      if(selectedColor){
+        event.target.classList.add(selectedColor.toUpperCase())
+      }
+      
+    }
+  })
 
-  //   hole.addEventListener('mouseleave', (event) => {
-  //     event.target.classList.remove(selectedColor)
-  //   })
+  hole.addEventListener('mouseleave', (event) => {
+    if(selectedColor){
+      event.target.classList.remove(selectedColor.toUpperCase())
+    }
+  })
+
 })
 
 startButton.addEventListener('click', init)
 checkButton.addEventListener('click', tryFeedback)
 
 init()
+//let backAudio = new Audio('audio_file.mp3')
