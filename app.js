@@ -1,6 +1,7 @@
 /*-------------------------------- Constants --------------------------------*/
 const colorsSet = ['red', 'yellow', 'green', 'blue', 'orange', 'white']
-
+const backAudio = new Audio('./sounds/The-Ant-Hill-Gang-Goes-West.mp3');
+const actionSound = new Audio('./sounds/Footstep_Tile_Right_3.mp3');
 /*---------------------------- Variables (state) ----------------------------*/
 let attemptsRemaining = 10
 let tryIndex = 0
@@ -27,6 +28,7 @@ const mainRow = document.querySelector(".main-row")
 /*-------------------------------- Functions --------------------------------*/
 const clickHole = (hole) => {
   if (!win && !lose) {
+    actionSound.play()
     let lastClass = hole.target.classList[hole.target.classList.length - 1]
     if (lastClass === 'hole') {
       hole.target.classList.add(selectedColor)
@@ -38,6 +40,7 @@ const clickHole = (hole) => {
   }
 }
 const init = () => {
+  backAudio.play()
   win = false
   lose = false
   attemptsRemaining = 10
@@ -262,5 +265,7 @@ activeGuessRow.forEach((hole) => {
 startButton.addEventListener('click', init)
 checkButton.addEventListener('click', tryFeedback)
 
+backAudio.loop = true
+backAudio.volume = 0.2;
 init()
-//let backAudio = new Audio('audio_file.mp3')
+
