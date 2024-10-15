@@ -87,6 +87,7 @@ body {
 }
 #color-set > div:hover {
   border: 2px solid var(--hole-color);
+  cursor: pointer;
 }
 .selectedColor {
   border: 2px solid var(--hole-color) !important;
@@ -145,6 +146,12 @@ button {
 }
 button:hover {
   border-color: #b5b5b5;
+}
+.dontClick {
+  cursor: not-allowed;
+}
+.clickAllowed {
+  cursor: pointer;
 }
 #check {
   padding: 5px 10px 5px 10px;

@@ -37,6 +37,11 @@ const clickHole = (hole) => {
       hole.target.classList.add(selectedColor)
     }
     addAttempt(hole.target.id, selectedColor)
+    if (attempt.every((hole) => hole !== '')) {
+      checkButton.removeAttribute('title')
+      checkButton.classList.remove('dontClick')
+      checkButton.classList.add('clickAllowed')
+    }
   }
 }
 const init = () => {
@@ -45,6 +50,8 @@ const init = () => {
   lose = false
   attemptsRemaining = 10
   tryIndex = 0
+  checkButton.classList.add('dontClick')
+  checkButton.title = 'Fill the blanks first!'
   message.innerHTML = `Try to find the colors in the exact order.</br> You have <span class="attempts">${attemptsRemaining}</span> attempts remaining.`
   code = []
   setNewCode()
