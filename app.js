@@ -2,6 +2,10 @@
 const colorsSet = ['red', 'yellow', 'green', 'blue', 'orange', 'white']
 const backAudio = new Audio('./sounds/The-Ant-Hill-Gang-Goes-West.mp3')
 const actionSound = new Audio('./sounds/Footstep_Tile_Right_3.mp3')
+const newRowFX = new Audio('./sounds/Creepy-Roll-Over-4.mp3')
+const youWin = new Audio('./sounds/you-win-sequence-1-183948.mp3')
+const youLose = new Audio('./sounds/buzzer-4-183895.mp3')
+
 /*---------------------------- Variables (state) ----------------------------*/
 let attemptsRemaining = 10
 let tryIndex = 0
@@ -51,6 +55,7 @@ const init = () => {
   attemptsRemaining = 10
   tryIndex = 0
   checkButton.classList.add('dontClick')
+  checkButton.classList.remove('clickAllowed')
   checkButton.title = 'Fill the blanks first!'
   message.innerHTML = `Try to find the colors in the exact order.</br> You have <span class="attempts">${attemptsRemaining}</span> attempts remaining.`
   code = []
@@ -78,6 +83,8 @@ const addAttempt = (index, holeColor) => {
 }
 const tryFeedback = () => {
   if (attempt.every((hole) => hole)) {
+    checkButton.classList.add('dontClick')
+    checkButton.classList.remove('clickAllowed')
     feedback = [] //to empty feedback array
 
     CodeCopy.forEach((color, index) => {
@@ -192,6 +199,7 @@ const addGuessRow = () => {
 
   CodeCopy = []
   CodeCopy = code.map((x) => x)
+  newRowFX.play()
   clearGuessRow()
 }
 const checkWinLose = () => {
@@ -210,6 +218,7 @@ const checkWinLose = () => {
     checkButton.disabled = true
     mainRow.setAttribute('disabled', true)
     updateCodeDisply()
+    youWin.play()
     message.innerText = 'You are smart!'
     const myPopup = new Popup({
       id: 'my-popup',
@@ -221,6 +230,7 @@ const checkWinLose = () => {
     checkButton.disabled = true
     mainRow.setAttribute('disabled', true)
     updateCodeDisply()
+    youLose.play()
     message.innerText = 'Is it hard? Try again!'
     const myPopup = new Popup({
       id: 'my-popup',
